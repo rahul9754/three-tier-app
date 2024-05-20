@@ -68,5 +68,5 @@ Follow these steps to deploy the three-tier application:
 9. **Monitor Deployment**: Monitor the pipeline execution and verify that all application components are deployed successfully.
 
 10. **Access the Application**: Once deployed, access the application using the provided endpoints for the Vote and Result web apps. Incase of any issues do validate the nsg rules having inbound rules allowed for the respective `nodeport`. 
--   to access the vote, http://<public-ip-node>:31000
-- to access the result, http://<public-ip-node>:31001
+-   to access the vote, `http://<public-ip-node>:31000`
+- to access the result, `http://<public-ip-node>:31001`
