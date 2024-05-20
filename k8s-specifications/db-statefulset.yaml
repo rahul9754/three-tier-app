@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+spec:
+  serviceName: db-service
+  selector:
+    matchLabels:
+      app: db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:10.4
+          imagePullPolicy: "IfNotPresent"
+          ports:
+          - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_PASSWORD
+            - name: PGDATA
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-config
+                  key: PGDATA  
+          volumeMounts:
+          - name: azure-managed-disk-pvc
+            mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: azure-managed-disk-pvc
+        persistentVolumeClaim:
+          claimName: azure-managed-disk-pvc
