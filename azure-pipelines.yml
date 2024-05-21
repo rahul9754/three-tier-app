@@ -84,7 +84,7 @@ stages:
 
             #using azure rm as connection type for storageclass
             - task: KubernetesManifest@1
-              displayName: deploying storage class and pv
+              displayName: Deploying Storage Class and PVC
               inputs:
                 action: 'deploy'
                 connectionType: 'azureResourceManager'
@@ -97,7 +97,7 @@ stages:
                   $(Pipeline.Workspace)/manifests/db-pvc.yaml
             
             - task: KubernetesManifest@1
-              displayName: deploying db and redis
+              displayName: Deploying DB and Redis
               inputs:
                 action: 'deploy'
                 namespace: 'default'
@@ -108,9 +108,8 @@ stages:
                   $(Pipeline.Workspace)/manifests/db-service.yaml
                   $(Pipeline.Workspace)/manifests/db-statefulset.yaml
 
-
             - task: KubernetesManifest@1
-              displayName: deploying result
+              displayName: Deploying Result App
               inputs:
                 action: 'deploy'
                 namespace: 'default'
@@ -118,8 +117,9 @@ stages:
                   $(Pipeline.Workspace)/manifests/result-deployment.yaml
                   $(Pipeline.Workspace)/manifests/result-service.yaml
                 containers: '$(acrUrl)/$(imgRepoResult):$(tag)'
+
             - task: KubernetesManifest@1
-              displayName: deploying vote
+              displayName: Deploying Vote App
               inputs:
                 action: 'deploy'
                 namespace: 'default'
@@ -127,8 +127,9 @@ stages:
                   $(Pipeline.Workspace)/manifests/vote-deployment.yaml
                   $(Pipeline.Workspace)/manifests/vote-service.yaml
                 containers: '$(acrUrl)/$(imgRepoVote):$(tag)'
+
             - task: KubernetesManifest@1
-              displayName: deploying worker
+              displayName: Deploying Worker App
               inputs:
                 action: 'deploy'
                 namespace: 'default'
