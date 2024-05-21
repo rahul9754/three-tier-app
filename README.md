@@ -55,13 +55,13 @@ Follow these steps to deploy the three-tier application:
 
 3. **Configure Azure Container Registry (ACR)**: Set up an `Azure Container Registry` (ACR) to store your Docker images. Make sure to grant `AcrPull` permission to `managed identity` resource of your AKS cluster on the `Azure container registry`.
 
-4. **Build Docker Images**: Build Docker images for each component of the application (Vote, Worker, Result) using the provided Dockerfiles. We will use Azure Pipeline to perform the CI.
+4. **Build Docker Images**: Build Docker images for each component of the application (Vote, Worker, Result) using the provided Dockerfiles. We will use [Azure Pipeline](https://github.com/rahul9754/three-tier-app/blob/main/azure-pipelines.yml) to perform the CI.
 
-5. **Push Docker Images to ACR**: Push the built Docker images to your Azure Container Registry. We will use Azure Pipeline to push the image to the registry.
+5. **Push Docker Images to ACR**: Push the built Docker images to your Azure Container Registry. We will use [Azure Pipeline](https://github.com/rahul9754/three-tier-app/blob/main/azure-pipelines.yml) to push the image to the registry.
 
 6. **Configure Kubernetes Manifests**: Update the Kubernetes manifests in the `k8s-manifests` folder to reference the correct image URLs from your ACR. This will be achieved using `container` key in our `task` block.
 
-7. **Configure Azure Pipelines YAML**: Update the Azure Pipelines YAML file (`azure-pipelines.yml`) to define the pipeline stages and jobs for building and deploying the application.
+7. **Configure Azure Pipelines YAML**: Update the Azure Pipelines YAML file [(`azure-pipelines.yml`)](https://github.com/rahul9754/three-tier-app/blob/main/azure-pipelines.yml) to define the pipeline stages and jobs for building and deploying the application.
 
 8. **Run the Pipeline**: Trigger the Azure Pipelines build pipeline to build and deploy the application to your AKS cluster.
 
